@@ -1,0 +1,21 @@
+#Copyright Pedro Tanaka (www.pedrotanaka.com)
+#!/bin/bash
+
+# Sets up git
+has_git=$(dpkg --get-selections git)
+if [ "$has_git" == "" ]
+then
+    sudo apt-get install git
+fi
+read -p "What's your username?" user_name
+git config --global user.name "$user_name"
+read -p "What's your user email?" user_email
+git config --global user.email $user_email
+git config --global core.editor vim
+git config --global merge.tool vimdiff
+git config --global color.ui always
+git config --global core.autocrlf input
+
+
+# If a foreign user name gets introduced into git config, run
+# git config --global -e and delete the unwanted user names.

@@ -1,0 +1,13 @@
+#Copyright Pedro Tanaka (www.pedrotanaka.com)
+#!/bin/bash
+
+# Generates ssh keys and copies the contents to clipboard
+read -p "What's your email?" email
+ssh-keygen -t rsa -C $email
+is_xclip=$(dpkg --get-selections | grep xclip)
+if [ "$is_xclip" == "" ]
+then
+    sudo apt-get install xclip
+fi
+xclip -sel clip < ~/.ssh/id_rsa.pub
+
